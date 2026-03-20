@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>溯知慧源 · 国际AI资讯推送</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f6faff 0%, #e9f2ff 100%);
+            color: #0b2b5c;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        /* 玻璃卡片 */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 32px;
+            box-shadow: 0 20px 40px -16px rgba(0, 60, 120, 0.2);
+            padding: 2.5rem;
+        }
+        /* 科技网格背景 */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 80px 0 60px;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(59,130,246,0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59,130,246,0.08) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+        h1 {
+            font-size: clamp(2.8rem, 8vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(145deg, #0b2b5c, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        h2 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #0b2b5c;
+            margin-bottom: 2rem;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+        .feature-card {
+            background: white;
+            border-radius: 28px;
+            padding: 30px 24px;
+            border: 1px solid rgba(59,130,246,0.2);
+            box-shadow: 0 12px 24px -10px rgba(0,60,120,0.1);
+        }
+        .feature-card i {
+            font-size: 2.2rem;
+            color: #3b82f6;
+            margin-bottom: 20px;
+        }
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .feature-card p {
+            color: #334155;
+        }
+        .news-item {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border-left: 4px solid #3b82f6;
+            transition: 0.2s;
+        }
+        .news-item a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .news-item:hover {
+            transform: translateX(6px);
+            box-shadow: 0 8px 16px rgba(59,130,246,0.15);
+        }
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+        .demo-box {
+            background: linear-gradient(145deg, #ffffff, #f4f9ff);
+            border-radius: 28px;
+            padding: 32px;
+            margin: 40px 0;
+            border: 1px solid rgba(59,130,246,0.2);
+        }
+        .input-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin: 24px 0;
+        }
+        .input-group input {
+            flex: 1 1 300px;
+            padding: 16px 24px;
+            border: 1px solid #cbd5e1;
+            border-radius: 40px;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.2s;
+        }
+        .input-group input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+        }
+        .input-group button {
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border: none;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 8px 16px -6px #2563eb;
+        }
+        .input-group button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -8px #2563eb;
+        }
+        .demo-result {
+            background: rgba(255,255,255,0.8);
+            border-radius: 24px;
+            padding: 24px;
+            margin-top: 24px;
+            border: 1px dashed #3b82f6;
+            display: none;
+        }
+        .contact-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        .contact-item {
+            background: white;
+            border-radius: 60px;
+            padding: 18px 36px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            box-shadow: 0 12px 24px -10px rgba(59,130,246,0.3);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        .contact-item i {
+            color: #3b82f6;
+            font-size: 1.8rem;
+        }
+        .contact-item a {
+            text-decoration: none;
+            color: #0b2b5c;
+        }
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #64748b;
+            border-top: 1px solid rgba(59,130,246,0.2);
+            margin-top: 60px;
+        }
+        .btn-outline {
+            display: inline-block;
+            padding: 12px 32px;
+            border: 1.5px solid #3b82f6;
+            border-radius: 40px;
+            color: #3b82f6;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .btn-outline:hover {
+            background: #3b82f6;
+            color: white;
+        }
+        @media (max-width: 640px) {
+            .contact-item {
+                width: 100%;
+                justify-content: center;
+            }
+            .input-group button {
+                width: 100%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="hero">
+        <div class="container" style="text-align: center;">
+            <span style="color: #3b82f6; font-weight: 600; letter-spacing: 1px;">✨ 溯知慧源 · 认知增强平台</span>
+            <h1>溯知慧源</h1>
+            <p style="font-size: 1.4rem; max-width: 700px; margin: 24px auto; color: #1e293b;">国际AI资讯 · 双节点聚合 · 事件聚类 · 个性化推送</p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="#demo" class="btn-outline"><i class="fas fa-flask"></i> 试用预览</a>
+                <a href="#contact" class="btn-outline"><i class="fas fa-paper-plane"></i> 联系我们</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 项目简介 -->
+        <section id="about" style="margin: 60px 0;">
+            <div class="glass">
+                <h2>关于溯知慧源</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 20px;">一个由个人开发者打造的硬核AI资讯系统，专注消除信息差。</p>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-globe"></i>
+                        <h3>40+ 国际源</h3>
+                        <p>arXiv、TechCrunch、GitHub、Reddit等全球科技媒体，手工调试，稳定运行。</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-code-branch"></i>
+                        <h3>自研聚类</h3>
+                        <p>基于jieba分词的词重叠算法，自动识别热点事件，误报率<5%。</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-server"></i>
+                        <h3>双节点架构</h3>
+                        <p>海外+国内服务器协同，年成本仅198元，国内稀缺信息同步抓取。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 今日资讯展示 -->
+        <section id="news" style="margin: 80px 0;">
+            <h2>📡 今日实时资讯</h2>
+            <div id="news-list" class="glass" style="padding: 2rem;">
+                <p style="color:#64748b;">加载中…</p>
+            </div>
+        </section>
+
+        <!-- 试用预览区（核心亮点） -->
+        <section id="demo" style="margin: 80px 0;">
+            <h2>🧪 试用预览 · AI为您生成专属资讯</h2>
+            <div class="demo-box">
+                <p style="font-size: 1.1rem;">输入您感兴趣的关键词（如“AI芯片 机器人”），系统将调用本地模型为您生成一条预览资讯，体验个性化推送的魅力。</p>
+                <div class="input-group">
+                    <input type="text" id="keywords" placeholder="例如：大模型 自动驾驶" value="AI芯片">
+                    <button id="demoBtn">生成预览</button>
+                </div>
+                <div id="demoResult" class="demo-result">
+                    <h3 id="demoTitle"></h3>
+                    <p id="demoSummary"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系我们 -->
+        <section id="contact" style="margin: 80px 0;">
+            <h2>📬 加入我们 / 联系开发者</h2>
+            <div class="contact-list">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:huyi0414@126.com">huyi0414@126.com</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-weixin"></i>
+                    <span>wxid_1sezdgcbad6w22</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-github"></i>
+                    <a href="https://github.com/The0588/suozhiyuan-international-news" target="_blank">GitHub</a>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 40px;">如有合作或反馈，欢迎通过以上方式联系。</p>
+        </section>
+
+        <footer class="footer">
+            <p>© 2026 溯知慧源 · 个人开发者胡懿 · 本站内容由真实系统驱动</p>
+            <p style="margin-top: 10px;"><a href="https://beian.miit.gov.cn/" target="_blank" style="color:#64748b;">京ICP备12345678号</a>（示例）</p>
+        </footer>
+    </div>
+
+    <script>
+        // API基础地址（你的美国服务器公网IP:5000）
+        const API_BASE = 'http://47.85.46.85:5000';
+
+        // 加载今日资讯
+        async function loadNews() {
+            try {
+                const res = await fetch(`${API_BASE}/api/latest-news`);
+                const data = await res.json();
+                if (data.success && data.news) {
+                    const container = document.getElementById('news-list');
+                    container.innerHTML = '';
+                    data.news.forEach(item => {
+                        const div = document.createElement('div');
+                        div.className = 'news-item';
+                        div.innerHTML = `
+                            <a href="${item.link}" target="_blank">
+                                <strong>${item.title}</strong>
+                                <div class="news-meta">
+                                    <span>${item.source || '未知来源'}</span>
+                                    <span>${item.time || ''}</span>
+                                </div>
+                            </a>
+                        `;
+                        container.appendChild(div);
+                    });
+                } else {
+                    document.getElementById('news-list').innerHTML = '<p>暂无资讯，请稍后刷新</p>';
+                }
+            } catch (e) {
+                document.getElementById('news-list').innerHTML = '<p>加载失败，请检查网络</p>';
+            }
+        }
+
+        // 试用预览
+        document.getElementById('demoBtn').addEventListener('click', async () => {
+            const keywords = document.getElementById('keywords').value.trim();
+            if (!keywords) {
+                alert('请输入关键词');
+                return;
+            }
+            const resultDiv = document.getElementById('demoResult');
+            resultDiv.style.display = 'none';
+            try {
+                const res = await fetch(`${API_BASE}/api/demo`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ keywords })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    document.getElementById('demoTitle').innerText = data.title || 'AI生成的资讯预览';
+                    document.getElementById('demoSummary').innerText = data.summary || '暂无摘要';
+                    resultDiv.style.display = 'block';
+                } else {
+                    alert('生成失败：' + (data.error || '未知错误'));
+                }
+            } catch (e) {
+                alert('网络错误，请稍后重试');
+            }
+        });
+
+        // 页面加载后立即获取今日资讯
+        loadNews();
+    </script>
+</body>
+</html>
