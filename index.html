@@ -4,7 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>溯知慧源 · 国际AI资讯推送</title>
+    <!--
+        ============================================================
+        文件名：index.html
+        项目：溯知慧源 · 国际AI资讯推送系统（官网）
+        开发者：胡懿
+        创建日期：2026-03-16
+        最后更新：2026-03-20
+        版本：V1.1
+        ============================================================
+        开发日志：
+        [2026-03-16] 初版创建，实现资讯列表动态加载、基础样式。
+        [2026-03-18] 增加试用预览区域（调用后端API）。
+        [2026-03-20] 适配后端JSON字段（title_cn、source、time），
+                     优化资讯展示，试用预览改为“功能开发中”友好提示。
+        ============================================================
+        说明：
+        - 本页面通过 HTTPS 调用后端 API（https://api.suozhi.top/api/latest-news）
+          获取每日最新资讯，并动态渲染。
+        - 试用预览部分因服务器性能暂时受限，当前仅显示开发中提示，待升级后恢复。
+        - 页面设计采用玻璃态科技风格，适配移动端。
+        ============================================================
+    -->
     <style>
+        /* ---------- 全局重置与字体 ---------- */
         * {
             margin: 0;
             padding: 0;
@@ -21,7 +44,8 @@
             margin: 0 auto;
             padding: 0 24px;
         }
-        /* 玻璃卡片 */
+
+        /* ---------- 玻璃态卡片组件 ---------- */
         .glass {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(12px);
@@ -31,7 +55,8 @@
             box-shadow: 0 20px 40px -16px rgba(0, 60, 120, 0.2);
             padding: 2.5rem;
         }
-        /* 科技网格背景 */
+
+        /* ---------- 首屏科技网格背景 ---------- */
         .hero {
             position: relative;
             overflow: hidden;
@@ -47,6 +72,8 @@
             background-size: 40px 40px;
             pointer-events: none;
         }
+
+        /* ---------- 主标题渐变 ---------- */
         h1 {
             font-size: clamp(2.8rem, 8vw, 4.5rem);
             font-weight: 700;
@@ -62,6 +89,8 @@
             color: #0b2b5c;
             margin-bottom: 2rem;
         }
+
+        /* ---------- 特色卡片网格 ---------- */
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -88,6 +117,8 @@
         .feature-card p {
             color: #334155;
         }
+
+        /* ---------- 资讯列表样式 ---------- */
         .news-item {
             background: white;
             border-radius: 20px;
@@ -111,6 +142,8 @@
             font-size: 0.9rem;
             margin-top: 8px;
         }
+
+        /* ---------- 试用预览区（保留样式，待升级后恢复） ---------- */
         .demo-box {
             background: linear-gradient(145deg, #ffffff, #f4f9ff);
             border-radius: 28px;
@@ -161,6 +194,8 @@
             border: 1px dashed #3b82f6;
             display: none;
         }
+
+        /* ---------- 联系方式卡片 ---------- */
         .contact-list {
             display: flex;
             flex-wrap: wrap;
@@ -188,6 +223,8 @@
             text-decoration: none;
             color: #0b2b5c;
         }
+
+        /* ---------- 页脚 ---------- */
         .footer {
             text-align: center;
             padding: 40px 0;
@@ -209,6 +246,8 @@
             background: #3b82f6;
             color: white;
         }
+
+        /* ---------- 移动端适配 ---------- */
         @media (max-width: 640px) {
             .contact-item {
                 width: 100%;
@@ -222,6 +261,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <!-- ==================== 首屏 ==================== -->
     <div class="hero">
         <div class="container" style="text-align: center;">
             <span style="color: #3b82f6; font-weight: 600; letter-spacing: 1px;">✨ 溯知慧源 · 认知增强平台</span>
@@ -235,7 +275,7 @@
     </div>
 
     <div class="container">
-        <!-- 项目简介 -->
+        <!-- ==================== 项目简介 ==================== -->
         <section id="about" style="margin: 60px 0;">
             <div class="glass">
                 <h2>关于溯知慧源</h2>
@@ -260,7 +300,7 @@
             </div>
         </section>
 
-        <!-- 今日资讯展示 -->
+        <!-- ==================== 今日资讯展示 ==================== -->
         <section id="news" style="margin: 80px 0;">
             <h2>📡 今日实时资讯</h2>
             <div id="news-list" class="glass" style="padding: 2rem;">
@@ -268,7 +308,12 @@
             </div>
         </section>
 
-        <!-- 试用预览区（核心亮点） -->
+        <!-- ==================== 试用预览区（功能开发中） ==================== -->
+        <!--
+            说明：此区域计划用于调用本地模型生成个性化资讯预览，
+            因服务器性能暂时不足，当前改为点击显示“功能开发中”提示。
+            待服务器升级后，只需恢复 JavaScript 中的实际请求代码即可。
+        -->
         <section id="demo" style="margin: 80px 0;">
             <h2>🧪 试用预览 · AI为您生成专属资讯</h2>
             <div class="demo-box">
@@ -284,7 +329,7 @@
             </div>
         </section>
 
-        <!-- 联系我们 -->
+        <!-- ==================== 联系方式 ==================== -->
         <section id="contact" style="margin: 80px 0;">
             <h2>📬 加入我们 / 联系开发者</h2>
             <div class="contact-list">
@@ -311,10 +356,23 @@
     </div>
 
     <script>
-        // API基础地址（你的美国服务器公网IP:5000）
+        // ==================== 配置 ====================
+        // API 基础地址（HTTPS 安全接口，由 Nginx + Let's Encrypt 提供）
         const API_BASE = 'https://api.suozhi.top';
 
-        // 加载今日资讯
+        // ==================== 加载今日资讯 ====================
+        /**
+         * 从后端 API 获取最新资讯，并渲染到页面
+         * 后端返回的 JSON 结构应包含：
+         *   success: boolean
+         *   news: array of {
+         *       title: string,      // 英文原标题
+         *       title_cn: string,   // 中文标题（优先显示）
+         *       link: string,       // 原文链接
+         *       source: string,     // 来源名称（如“arXiv AI”）
+         *       time: string        // 发布时间（可选）
+         *   }
+         */
         async function loadNews() {
             try {
                 const res = await fetch(`${API_BASE}/api/latest-news`);
@@ -322,15 +380,20 @@
                 if (data.success && data.news) {
                     const container = document.getElementById('news-list');
                     container.innerHTML = '';
+                    // 遍历新闻列表，动态生成 HTML
                     data.news.forEach(item => {
                         const div = document.createElement('div');
                         div.className = 'news-item';
+                        // 优先显示中文标题，若无则显示英文
+                        const displayTitle = item.title_cn || item.title;
+                        const source = item.source || '未知来源';
+                        const time = item.time || '';
                         div.innerHTML = `
                             <a href="${item.link}" target="_blank">
-                                <strong>${item.title}</strong>
+                                <strong>${displayTitle}</strong>
                                 <div class="news-meta">
-                                    <span>${item.source || '未知来源'}</span>
-                                    <span>${item.time || ''}</span>
+                                    <span>${source}</span>
+                                    <span>${time}</span>
                                 </div>
                             </a>
                         `;
@@ -340,39 +403,27 @@
                     document.getElementById('news-list').innerHTML = '<p>暂无资讯，请稍后刷新</p>';
                 }
             } catch (e) {
+                // 网络错误或后端不可达时显示友好提示
                 document.getElementById('news-list').innerHTML = '<p>加载失败，请检查网络</p>';
             }
         }
 
-        // 试用预览
-        document.getElementById('demoBtn').addEventListener('click', async () => {
-            const keywords = document.getElementById('keywords').value.trim();
-            if (!keywords) {
-                alert('请输入关键词');
-                return;
-            }
+        // ==================== 试用预览（当前为演示模式） ====================
+        /**
+         * 试用预览按钮点击处理（开发中版本）
+         * 因服务器性能暂时不足以支撑实时模型调用，改为显示友好的“功能开发中”提示。
+         * 未来升级后，只需将此函数内的代码替换为真正的 fetch 请求即可。
+         */
+        document.getElementById('demoBtn').addEventListener('click', () => {
             const resultDiv = document.getElementById('demoResult');
-            resultDiv.style.display = 'none';
-            try {
-                const res = await fetch(`${API_BASE}/api/demo`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ keywords })
-                });
-                const data = await res.json();
-                if (data.success) {
-                    document.getElementById('demoTitle').innerText = data.title || 'AI生成的资讯预览';
-                    document.getElementById('demoSummary').innerText = data.summary || '暂无摘要';
-                    resultDiv.style.display = 'block';
-                } else {
-                    alert('生成失败：' + (data.error || '未知错误'));
-                }
-            } catch (e) {
-                alert('网络错误，请稍后重试');
-            }
+            // 显示提示区域
+            resultDiv.style.display = 'block';
+            document.getElementById('demoTitle').innerText = '🔧 功能开发中';
+            document.getElementById('demoSummary').innerHTML = '个性化预览功能正在加紧开发，预计将在服务器升级后上线。敬请期待！<br><i class="fas fa-smile-wink"></i>';
         });
 
-        // 页面加载后立即获取今日资讯
+        // ==================== 页面初始化 ====================
+        // 页面加载完成后立即加载今日资讯
         loadNews();
     </script>
 </body>
