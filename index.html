@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>溯知慧源 · 国际AI资讯推送</title>
+    <title>溯知慧源 · 国际AI资讯推送 + 知识图谱</title>
     <!-- 网站图标：汉字“溯” -->
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='70' font-size='70' text-anchor='middle' fill='%233b82f6' font-family='system-ui, sans-serif'%3E溯%3C/text%3E%3C/svg%3E">
     <style>
@@ -11,25 +11,24 @@
          * ============================================================
          * 文件名：index.html
          * 项目：溯知慧源 · 国际AI资讯推送系统（官网）
-         * 开发者：The0588
+         * 开发者：胡懿
          * 创建日期：2026-03-16
-         * 最后更新：2026-03-20
-         * 版本：V2.0 (视觉增强版)
+         * 最后更新：2026-03-23
+         * 版本：V3.0 (知识图谱体验入口 + 合规声明)
          * ============================================================
          * 开发日志：
          * [2026-03-16] 初版创建，实现资讯列表动态加载、基础样式。
          * [2026-03-18] 增加试用预览区域（调用后端API）。
-         * [2026-03-20] 适配后端JSON字段（title_cn、source、time），
-         *              优化资讯展示，试用预览改为“功能开发中”友好提示。
+         * [2026-03-20] 适配后端JSON字段（title_cn、source、time），优化资讯展示。
          * [2026-03-20] 增加深色模式、骨架屏加载、滚动渐显动画、反馈表单。
          * [2026-03-20] 视觉增强：动态渐变背景、流动网格、光效扫过、悬停特效。
+         * [2026-03-23] 增加知识图谱体验模块入口，统一UI风格。
+         * [2026-03-23] 页脚增加隐私政策、数据来源声明链接，符合《个人信息保护法》及版权声明要求。
          * ============================================================
-         * 说明：
-         * - 本页面通过 HTTPS 调用后端 API（https://api.suozhi.top/api/latest-news）
-         *   获取每日最新资讯，并动态渲染。
-         * - 试用预览部分因服务器性能暂时受限，当前仅显示开发中提示，待升级后恢复。
-         * - 页面设计采用玻璃态科技风格，适配移动端。
-         * - 深色模式、骨架屏、按来源交替取新闻等交互提升用户体验。
+         * 合规说明：
+         * - 隐私政策与数据来源声明独立页面，明确数据收集、使用、存储规则。
+         * - 用户数据仅用于个人学习研究，提供删除通道（support@suozhi.top）。
+         * - 爬虫内容仅作非商业聚合，尊重原著作权，提供侵权联系删除机制。
          * ============================================================
          */
         /* ==================== CSS 变量（主题） ==================== */
@@ -89,7 +88,6 @@
             margin: 0 auto;
             padding: 0 24px;
         }
-        /* 玻璃卡片增强 */
         .glass {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -105,7 +103,6 @@
             box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.2);
             border-color: var(--accent);
         }
-        /* 首屏科技网格背景 + 流动动画 */
         .hero {
             position: relative;
             overflow: hidden;
@@ -154,7 +151,6 @@
             background: linear-gradient(90deg, var(--accent), transparent);
             border-radius: 2px;
         }
-        /* 特色卡片网格 */
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -171,7 +167,6 @@
             position: relative;
             overflow: hidden;
         }
-        /* 光效扫过 */
         .feature-card::after {
             content: '';
             position: absolute;
@@ -209,7 +204,6 @@
         .feature-card p {
             color: var(--text-secondary);
         }
-        /* 资讯列表 */
         .news-item {
             background: var(--news-bg);
             border-radius: 20px;
@@ -250,7 +244,6 @@
             font-size: 0.85rem;
             margin-top: 10px;
         }
-        /* 骨架屏样式 */
         .skeleton {
             background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
             background-size: 200% 100%;
@@ -277,7 +270,6 @@
             height: 16px;
             width: 60%;
         }
-        /* 深色模式切换按钮 */
         .theme-toggle {
             position: fixed;
             top: 20px;
@@ -301,7 +293,6 @@
             transform: scale(1.05);
             border-color: var(--accent);
         }
-        /* 滚动渐显动画 */
         .fade-on-scroll {
             opacity: 0;
             transform: translateY(30px);
@@ -311,7 +302,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-        /* 试用预览区 */
         .demo-box {
             background: linear-gradient(145deg, #ffffff, #f4f9ff);
             border-radius: 32px;
@@ -380,7 +370,6 @@
             font-size: 1.2rem;
             color: var(--accent);
         }
-        /* 联系方式卡片 */
         .contact-list {
             display: flex;
             flex-wrap: wrap;
@@ -414,7 +403,6 @@
             text-decoration: none;
             color: var(--text-primary);
         }
-        /* 反馈表单 */
         .feedback-form {
             display: flex;
             flex-direction: column;
@@ -456,7 +444,6 @@
             color: #10b981;
             display: none;
         }
-        /* 统计数据 */
         .stats-grid {
             display: flex;
             flex-wrap: wrap;
@@ -491,7 +478,6 @@
             font-size: 0.9rem;
             color: var(--text-muted);
         }
-        /* 返回顶部按钮 */
         #backToTop {
             position: fixed;
             bottom: 24px;
@@ -521,7 +507,24 @@
             background: var(--accent-dark);
             transform: scale(1.1);
         }
-        /* 手机端适配 */
+        .btn-outline {
+            border: 2px solid var(--accent);
+            background: transparent;
+            padding: 10px 24px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-default);
+            color: var(--accent);
+        }
+        .btn-outline:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
         @media (max-width: 640px) {
             .container {
                 padding: 0 16px;
@@ -571,10 +574,6 @@
             .contact-item i {
                 font-size: 1.4rem;
             }
-            .btn-outline {
-                padding: 8px 20px;
-                font-size: 0.9rem;
-            }
             .stats-grid {
                 gap: 12px;
             }
@@ -588,25 +587,31 @@
                 font-size: 1rem;
             }
         }
+        .footer a {
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer a:hover {
+            color: var(--accent);
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- 深色模式切换按钮 -->
     <div class="theme-toggle" id="themeToggle">
         <i class="fas fa-moon"></i> <span>深色模式</span>
     </div>
-
     <button id="backToTop" title="返回顶部"><i class="fas fa-arrow-up"></i></button>
 
     <div class="hero">
         <div class="container" style="text-align: center;">
             <span style="color: var(--accent); font-weight: 600; letter-spacing: 1px;">✨ 溯知慧源 · 认知增强平台</span>
             <h1>溯知慧源</h1>
-            <p style="font-size: 1.4rem; max-width: 700px; margin: 24px auto; color: var(--text-secondary);">国际AI资讯 · 双节点聚合 · 事件聚类 · 个性化推送</p>
+            <p style="font-size: 1.4rem; max-width: 700px; margin: 24px auto; color: var(--text-secondary);">国际AI资讯 · 知识图谱 · 个人知识生态</p>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="#demo" class="btn-outline" style="border-color: var(--accent); color: var(--accent);"><i class="fas fa-flask"></i> 试用预览</a>
-                <a href="#contact" class="btn-outline" style="border-color: var(--accent); color: var(--accent);"><i class="fas fa-paper-plane"></i> 联系我们</a>
+                <a href="#demo" class="btn-outline"><i class="fas fa-flask"></i> 试用预览</a>
+                <a href="#graph" class="btn-outline"><i class="fas fa-cubes"></i> 知识图谱体验</a>
+                <a href="#contact" class="btn-outline"><i class="fas fa-paper-plane"></i> 联系我们</a>
             </div>
         </div>
     </div>
@@ -672,7 +677,6 @@
         <section id="news" style="margin: 80px 0;" class="fade-on-scroll">
             <h2>📡 今日实时资讯</h2>
             <div id="news-list" class="glass" style="padding: 2rem;">
-                <!-- 骨架屏示例 -->
                 <div class="skeleton-item">
                     <div class="skeleton skeleton-title"></div>
                     <div class="skeleton skeleton-meta"></div>
@@ -700,6 +704,34 @@
                 <div id="demoResult" class="demo-result">
                     <h3 id="demoTitle"></h3>
                     <p id="demoSummary"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 知识图谱体验模块（新增） -->
+        <section id="graph" style="margin: 80px 0;" class="fade-on-scroll">
+            <h2>🧩 知识图谱体验</h2>
+            <div class="glass" style="padding: 2rem;">
+                <p style="margin-bottom: 1.5rem;">将你的B站收藏夹自动转化为3D知识图谱，探索知识之间的隐秘连接。</p>
+                <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: center;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <ul style="list-style: none; padding: 0;">
+                            <li><i class="fas fa-check-circle" style="color: var(--accent);"></i> 自动同步B站收藏</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent);"></i> AI生成视频摘要</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent);"></i> 3D力导向图谱，支持筛选、搜索</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent);"></i> 本地模型运行，数据隐私安全</li>
+                        </ul>
+                    </div>
+                    <div style="flex: 2; text-align: center;">
+                        <img src="https://via.placeholder.com/400x250?text=知识图谱预览" alt="图谱预览" style="max-width: 100%; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.2);">
+                        <p style="margin-top: 12px;">⬅️ 示意图，实际效果更惊艳</p>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="/graph_experience.html" class="btn-outline" style="background: var(--accent); color: white; border: none; padding: 12px 32px; border-radius: 40px; text-decoration: none; display: inline-block;">
+                        <i class="fas fa-rocket"></i> 立即体验（需本地环境）
+                    </a>
+                    <p style="font-size: 0.8rem; margin-top: 12px;">* 体验前请确保已运行本地服务，详见页面说明</p>
                 </div>
             </div>
         </section>
@@ -742,13 +774,17 @@
 
         <footer class="footer" style="text-align: center; padding: 40px 0; color: var(--text-muted); border-top: 1px solid var(--card-border); margin-top: 60px;">
             <p>© 2026 溯知慧源 · 个人开发者 · 本站内容由真实系统驱动</p>
-            <p style="margin-top: 10px;"><a href="#" style="color: var(--text-muted);">京ICP备12345678号</a>（示例）</p>
+            <p style="margin-top: 10px;">
+                <a href="/privacy.html" style="color: var(--text-muted); margin: 0 12px;">隐私政策</a> |
+                <a href="/disclaimer.html" style="color: var(--text-muted); margin: 0 12px;">数据来源声明</a>
+            </p>
         </footer>
     </div>
 
     <script>
-        // API 基础地址
-        const API_BASE = 'https://api.suozhi.top';
+        // API 基础地址（后端服务，请根据实际部署修改）
+        const API_BASE = 'https://api.suozhi.top';  // 生产环境
+        // const API_BASE = 'http://localhost:5000'; // 本地测试
 
         // 数字滚动动画
         function animateNumber(element, target, duration = 800) {
@@ -770,7 +806,6 @@
         // 按来源交替取新闻（最多5条）
         function mixNewsBySource(newsArray) {
             if (!newsArray || newsArray.length === 0) return [];
-            // 按来源分组
             const sourceMap = new Map();
             newsArray.forEach(item => {
                 const source = item.source || '未知来源';
@@ -786,7 +821,6 @@
                 if (arr && arr.length > 0) {
                     mixed.push(arr.shift());
                 }
-                // 如果当前来源已空，则从 map 和列表中移除
                 if (arr.length === 0) {
                     sourceMap.delete(currentSource);
                     sourceList = Array.from(sourceMap.keys());
@@ -797,7 +831,6 @@
                 }
                 idx++;
             }
-            // 如果还没凑够5条，从原数组顺序补足
             if (mixed.length < 5) {
                 const remaining = newsArray.filter(item => !mixed.includes(item));
                 mixed.push(...remaining.slice(0, 5 - mixed.length));
@@ -812,9 +845,7 @@
                 const res = await fetch(`${API_BASE}/api/latest-news`);
                 const data = await res.json();
                 if (data.success && data.news) {
-                    // 混合来源取前5条
                     const mixedNews = mixNewsBySource(data.news);
-                    // 渲染
                     container.innerHTML = '';
                     mixedNews.forEach(item => {
                         const div = document.createElement('div');
@@ -833,7 +864,6 @@
                         `;
                         container.appendChild(div);
                     });
-                    // 更新统计数据（带滚动动画）
                     if (data.total) {
                         const totalEl = document.getElementById('totalCount');
                         totalEl.innerText = '0';
@@ -924,7 +954,7 @@
             }
         });
 
-        // 页面启动
+        // 启动
         loadNews();
     </script>
 </body>
